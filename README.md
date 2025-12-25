@@ -8,6 +8,8 @@ JPTracker is an auction tracking system designed to monitor and manage unique au
 - [Architecture Overview](docs/ARCHITECTURE.md) - System design and rationale
 - [Database Design](docs/DATABASE_DESIGN.md) - Why relational DB and design decisions
 - [Database Schema](schema/schema.sql) - SQL schema with tables, indexes, and examples
+- [Migration Guide](docs/MIGRATION_GUIDE.md) - Setup instructions and sample data
+- [FAQ](docs/FAQ.md) - Common questions about the database design
 
 ## Key Features
 - Track unique auction offers with complete product information
