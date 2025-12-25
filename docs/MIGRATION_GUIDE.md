@@ -3,7 +3,8 @@
 ## Initial Setup
 
 ### Prerequisites
-- PostgreSQL 12 or higher (for array support and advanced features)
+- PostgreSQL 14 or higher (recommended for best performance and security)
+  - PostgreSQL 12+ will work but 14+ is recommended for improved query performance and JSONB operations
 - Database user with CREATE privileges
 
 ### Creating the Database

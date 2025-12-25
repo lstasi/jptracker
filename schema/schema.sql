@@ -46,7 +46,7 @@ CREATE TABLE offers (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     
-    -- Indexes for common queries
+    -- Constraints for data validation
     CONSTRAINT check_end_time CHECK (end_time > start_time),
     CONSTRAINT check_prices CHECK (starting_price >= 0 AND current_price >= starting_price)
 );
@@ -249,9 +249,10 @@ BEGIN
     END IF;
     
     -- Update the offer's current price to the winning bid amount (not NEW.amount)
+    -- Increment bid_count (more efficient than COUNT(*) for high-volume auctions)
     UPDATE offers
     SET current_price = COALESCE(winning_bid_amount, starting_price),
-        bid_count = (SELECT COUNT(*) FROM bids WHERE offer_id = NEW.offer_id)
+        bid_count = bid_count + 1
     WHERE id = NEW.offer_id;
     
     RETURN NEW;
