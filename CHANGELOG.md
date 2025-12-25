@@ -15,11 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Architecture proposal document
 - Project proposal document
 - Planning phase documentation
-- **Database design and schema (PostgreSQL)**
+- **Database design and schema (SQLite/PostgreSQL compatible)**
 - **Comprehensive database documentation**
   - Database design rationale document
-  - Database architecture document
-  - PostgreSQL schema with triggers, indexes, and views
+  - Unified architecture document (merged system and database architecture)
+  - SQLite/PostgreSQL-compatible schema with triggers, indexes, and views
   - Migration guide with setup instructions
   - Database FAQ addressing common design questions
 - **Automatic bid handling system**
@@ -28,9 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Performance-tuned indexes
 
 ### Changed
-- **Database technology**: Changed from SQLite → NoSQL (planned) to PostgreSQL (relational)
+- **Database technology**: SQLite for development → PostgreSQL for production
+  - Development uses SQLite for simplicity and zero configuration
+  - Production uses PostgreSQL for scalability and concurrent bidding
+  - Schema designed to be compatible with both databases
+  - Clear migration path documented
   - Rationale: Unique offers don't preclude structured relationships; ACID transactions critical for bidding
-  - See [DATABASE_DESIGN.md](docs/DATABASE_DESIGN.md) for full explanation
+  - See [architecture.md](docs/architecture.md) for full explanation and migration path
+- **Architecture documents**: Merged database-specific and system architecture into single unified document
 
 ### Deprecated
 - N/A

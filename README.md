@@ -18,7 +18,7 @@ jptracker is an auction tracking system designed to help users monitor auction i
 
 ### Backend
 - **Language**: Python
-- **Database**: PostgreSQL (relational database - see [Database Design](docs/DATABASE_DESIGN.md) for rationale)
+- **Database**: SQLite (development) → PostgreSQL (production) - see [Architecture](docs/architecture.md) for migration path
 - **API**: RESTful API backend
 
 ### Frontend
@@ -42,8 +42,7 @@ This project is currently in the planning and design phase. See the `docs/` fold
 
 ### Database Design (Completed)
 - [Database Design Rationale](docs/DATABASE_DESIGN.md) - Why relational DB for unique offers
-- [Database Architecture](docs/ARCHITECTURE.md) - Schema design patterns and decisions
-- [Database Schema](schema/schema.sql) - PostgreSQL schema with triggers and indexes
+- [Database Schema](schema/schema.sql) - PostgreSQL/SQLite schema with triggers and indexes
 - [Migration Guide](docs/MIGRATION_GUIDE.md) - Setup instructions and sample data
 - [Database FAQ](docs/FAQ.md) - Common questions about the database design
 

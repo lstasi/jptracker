@@ -73,7 +73,7 @@ jptracker provides a unified platform that:
 - Support efficient queries
 
 **Technical Approach**:
-- PostgreSQL database (relational - see [DATABASE_DESIGN.md](DATABASE_DESIGN.md))
+- SQLite (development) → PostgreSQL (production) - see [architecture.md](architecture.md)
 - Structured schema with proper indexing and triggers
 - Supports unique offers with flexible tagging
 
@@ -127,7 +127,7 @@ jptracker provides a unified platform that:
 ### Backend
 - **Language**: Python 3.8+
 - **Framework**: Flask or FastAPI
-- **Database**: PostgreSQL (production-ready relational database)
+- **Database**: SQLite (development) → PostgreSQL (production)
 - **ORM**: SQLAlchemy
 - **Scraping**: BeautifulSoup4, Requests, Selenium (if needed)
 - **Task Queue**: Celery (for background jobs)
@@ -155,9 +155,10 @@ jptracker provides a unified platform that:
 - [ ] Initial design mockups
 
 ### Phase 2: Backend Foundation (Week 3-4)
-- [x] Database schema design (PostgreSQL)
+- [x] Database schema design (SQLite/PostgreSQL compatible)
 - [x] Database schema implementation with triggers and indexes
-- [x] Database design documentation
+- [x] Database design documentation and migration path
+- [ ] Database implementation (SQLite for development)
 - [ ] Basic API structure
 - [ ] Authentication system
 - [ ] API endpoint scaffolding
@@ -203,7 +204,7 @@ jptracker provides a unified platform that:
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
 | Getting banned from scraping | High | Medium | Implement proper rate limiting, respect robots.txt |
-| Database choice validation | Medium | Low | Analyze requirements; PostgreSQL chosen (completed) |
+| Database choice validation | Medium | Low | SQLite for development, PostgreSQL for production (completed) |
 | Unreliable external price APIs | Medium | Medium | Use multiple data sources, implement fallbacks |
 | Frontend performance issues | Low | Low | Optimize JavaScript, implement lazy loading |
 
@@ -307,7 +308,8 @@ jptracker provides a unified platform that:
 - Support for international auction sites
 
 ### Technical Improvements
-- PostgreSQL database optimization and tuning
+- Migration from SQLite to PostgreSQL for production
+- PostgreSQL optimization and tuning
 - Microservices architecture
 - GraphQL API
 - Real-time updates with WebSockets
@@ -323,10 +325,11 @@ The modular architecture and phased approach allow for incremental development a
 
 1. ✅ Complete project planning documentation
 2. ✅ Set up repository structure
-3. ✅ Design database schema (PostgreSQL)
-4. ✅ Document database design and rationale
-5. 🔄 Create development environment (Python/PostgreSQL)
+3. ✅ Design database schema (SQLite/PostgreSQL compatible)
+4. ✅ Document database design, rationale, and migration path
+5. 🔄 Create development environment (Python/SQLite)
 6. 🔄 Begin backend development
+7. 🔄 Plan PostgreSQL migration for production
 
 ---
 

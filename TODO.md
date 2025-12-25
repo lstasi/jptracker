@@ -13,9 +13,9 @@
 ## Backend Development
 - [x] Design database schema
 - [x] Document database design rationale
-- [x] Create PostgreSQL schema with triggers and indexes
+- [x] Create SQLite/PostgreSQL-compatible schema with triggers and indexes
 - [ ] Set up Python virtual environment
-- [ ] Set up PostgreSQL database (development)
+- [ ] Set up SQLite database (development)
 - [ ] Create database models (SQLAlchemy)
 - [ ] Implement ORM/database layer
 - [ ] Build RESTful API structure
@@ -26,6 +26,14 @@
   - [ ] Bid management
   - [ ] User management
   - [ ] Alert management
+
+## Production Migration
+- [ ] Set up PostgreSQL staging environment
+- [ ] Test schema with PostgreSQL
+- [ ] Verify trigger compatibility
+- [ ] Load testing with PostgreSQL
+- [ ] Write data migration scripts
+- [ ] Migrate to PostgreSQL for production
 
 ## Web Scraping Module
 - [ ] Research target auction sites
