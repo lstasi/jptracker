@@ -220,23 +220,37 @@ CREATE OR REPLACE FUNCTION update_winning_bid()
 RETURNS TRIGGER AS $$
 DECLARE
     winning_bid_id BIGINT;
+    winning_bid_amount DECIMAL(10, 2);
+    old_winning_bid_id BIGINT;
 BEGIN
-    -- Find the winning bid (highest amount, earliest if tied)
-    SELECT id INTO winning_bid_id
+    -- Find the previously winning bid (to update efficiently)
+    SELECT id INTO old_winning_bid_id
+    FROM bids
+    WHERE offer_id = NEW.offer_id AND is_winning = true
+    LIMIT 1;
+    
+    -- Find the new winning bid (highest amount, earliest if tied)
+    SELECT id, amount INTO winning_bid_id, winning_bid_amount
     FROM bids
     WHERE offer_id = NEW.offer_id
       AND status = 'active'
     ORDER BY amount DESC, placed_at ASC
     LIMIT 1;
     
-    -- Update all bids for this offer
-    UPDATE bids 
-    SET is_winning = (id = winning_bid_id)
-    WHERE offer_id = NEW.offer_id;
+    -- Update only the affected bids for efficiency
+    -- Set old winning bid to false (if exists and different from new winner)
+    IF old_winning_bid_id IS NOT NULL AND old_winning_bid_id != winning_bid_id THEN
+        UPDATE bids SET is_winning = false WHERE id = old_winning_bid_id;
+    END IF;
     
-    -- Update the offer's current price
+    -- Set new winning bid to true
+    IF winning_bid_id IS NOT NULL THEN
+        UPDATE bids SET is_winning = true WHERE id = winning_bid_id;
+    END IF;
+    
+    -- Update the offer's current price to the winning bid amount (not NEW.amount)
     UPDATE offers
-    SET current_price = NEW.amount,
+    SET current_price = COALESCE(winning_bid_amount, starting_price),
         bid_count = (SELECT COUNT(*) FROM bids WHERE offer_id = NEW.offer_id)
     WHERE id = NEW.offer_id;
     
