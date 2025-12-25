@@ -123,30 +123,35 @@ SELECT 2, id, 'system' FROM tags WHERE name IN ('smartphone', 'samsung', 'electr
 
 ### Insert Test Bids
 
+**Note**: The `is_winning` flag and offer's `current_price`/`bid_count` are automatically 
+maintained by database triggers. You only need to INSERT bids - the system handles the rest.
+
 ```sql
 -- Bids on iPhone
+-- Just insert the bids - winning status and offer updates happen automatically
 INSERT INTO bids (offer_id, bidder_id, bidder_name, amount, status)
 VALUES 
-(1, 'buyer001', 'Alice Johnson', 650.00, 'outbid'),
-(1, 'buyer002', 'Bob Williams', 700.00, 'outbid'),
+(1, 'buyer001', 'Alice Johnson', 650.00, 'active'),
+(1, 'buyer002', 'Bob Williams', 700.00, 'active'),
 (1, 'buyer001', 'Alice Johnson', 750.00, 'active');
 
--- Update winning bid
-UPDATE bids SET is_winning = true WHERE id = (
-    SELECT id FROM bids WHERE offer_id = 1 ORDER BY amount DESC, placed_at ASC LIMIT 1
-);
+-- Check that winning bid was automatically determined
+SELECT id, bidder_name, amount, is_winning FROM bids WHERE offer_id = 1 ORDER BY placed_at;
+-- The 750.00 bid should have is_winning = true
 
 -- Bids on Samsung
 INSERT INTO bids (offer_id, bidder_id, bidder_name, amount, status)
 VALUES 
-(2, 'buyer003', 'Charlie Brown', 350.00, 'outbid'),
-(2, 'buyer004', 'Diana Prince', 400.00, 'outbid'),
+(2, 'buyer003', 'Charlie Brown', 350.00, 'active'),
+(2, 'buyer004', 'Diana Prince', 400.00, 'active'),
 (2, 'buyer003', 'Charlie Brown', 420.00, 'active');
 
--- Update winning bid
-UPDATE bids SET is_winning = true WHERE id = (
-    SELECT id FROM bids WHERE offer_id = 2 ORDER BY amount DESC, placed_at ASC LIMIT 1
-);
+-- Check winning bid
+SELECT id, bidder_name, amount, is_winning FROM bids WHERE offer_id = 2 ORDER BY placed_at;
+-- The 420.00 bid should have is_winning = true
+
+-- Verify offers were updated automatically
+SELECT id, title, current_price, bid_count FROM offers WHERE id IN (1, 2);
 ```
 
 ## Useful Queries for Development

@@ -129,27 +129,37 @@ This gives you NoSQL flexibility within a relational database.
 
 ### Q: How do we prevent bid sniping and race conditions?
 
-**A:** Transaction isolation and locking:
+**A:** Transaction isolation and automatic bid handling via triggers:
+
+The schema includes an automatic trigger that handles bid placement atomically:
+
 ```sql
-BEGIN;
+-- Simply insert a bid - everything else happens automatically
+INSERT INTO bids (offer_id, bidder_id, bidder_name, amount, status)
+VALUES (123, 'user456', 'John Doe', 150.00, 'active');
 
--- Lock the offer row
-SELECT * FROM offers WHERE id = 123 FOR UPDATE;
-
--- Validate bid (amount > current_price, offer still active, etc.)
--- Insert bid
-INSERT INTO bids (...) VALUES (...);
-
--- Update offer
-UPDATE offers SET current_price = ..., bid_count = bid_count + 1 WHERE id = 123;
-
--- Update previous winning bid
-UPDATE bids SET is_winning = false WHERE offer_id = 123 AND id != NEW_BID_ID;
-
-COMMIT;
+-- The trigger automatically:
+-- 1. Determines the winning bid (highest amount, earliest if tied)
+-- 2. Updates is_winning flag for all bids on that offer
+-- 3. Updates the offer's current_price and bid_count
 ```
 
-This is much simpler and more reliable than implementing the same logic in application code with NoSQL.
+The trigger implementation ensures atomicity:
+- All updates happen in a single transaction
+- No race conditions between concurrent bids
+- Consistent state maintained automatically
+- Application code is simpler and safer
+
+For additional protection against rapid-fire bidding:
+```sql
+-- Application can wrap in explicit transaction if needed
+BEGIN;
+-- Validate user hasn't been outbid in the meantime
+SELECT current_price FROM offers WHERE id = 123 FOR UPDATE;
+-- Insert bid (trigger handles the rest)
+INSERT INTO bids (...) VALUES (...);
+COMMIT;
+```
 
 ### Q: What about full-text search on offer titles and descriptions?
 

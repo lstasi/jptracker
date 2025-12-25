@@ -61,6 +61,8 @@ CREATE INDEX idx_offers_created_at ON offers(created_at);
 -- BIDS TABLE
 -- Tracks all bids placed on offers
 -- Maintains complete history for audit and analysis
+-- NOTE: The is_winning flag and offer's current_price/bid_count are automatically
+--       maintained by triggers when new bids are inserted. No manual updates needed.
 -- ============================================================================
 CREATE TABLE bids (
     id BIGSERIAL PRIMARY KEY,
@@ -91,6 +93,8 @@ CREATE INDEX idx_bids_offer_id ON bids(offer_id);
 CREATE INDEX idx_bids_bidder_id ON bids(bidder_id);
 CREATE INDEX idx_bids_placed_at ON bids(placed_at);
 CREATE INDEX idx_bids_winning ON bids(offer_id, is_winning) WHERE is_winning = true;
+-- Compound index for finding highest bid efficiently
+CREATE INDEX idx_bids_offer_amount ON bids(offer_id, amount DESC, placed_at ASC);
 
 -- ============================================================================
 -- TAGS TABLE
@@ -209,6 +213,40 @@ $$ language 'plpgsql';
 CREATE TRIGGER update_tag_usage_count_trigger
     AFTER INSERT OR DELETE ON offer_tags
     FOR EACH ROW EXECUTE FUNCTION update_tag_usage_count();
+
+-- Update winning bid status automatically
+-- When a new bid is placed, update is_winning flags for all bids on that offer
+CREATE OR REPLACE FUNCTION update_winning_bid()
+RETURNS TRIGGER AS $$
+DECLARE
+    winning_bid_id BIGINT;
+BEGIN
+    -- Find the winning bid (highest amount, earliest if tied)
+    SELECT id INTO winning_bid_id
+    FROM bids
+    WHERE offer_id = NEW.offer_id
+      AND status = 'active'
+    ORDER BY amount DESC, placed_at ASC
+    LIMIT 1;
+    
+    -- Update all bids for this offer
+    UPDATE bids 
+    SET is_winning = (id = winning_bid_id)
+    WHERE offer_id = NEW.offer_id;
+    
+    -- Update the offer's current price
+    UPDATE offers
+    SET current_price = NEW.amount,
+        bid_count = (SELECT COUNT(*) FROM bids WHERE offer_id = NEW.offer_id)
+    WHERE id = NEW.offer_id;
+    
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER update_winning_bid_trigger
+    AFTER INSERT ON bids
+    FOR EACH ROW EXECUTE FUNCTION update_winning_bid();
 
 -- ============================================================================
 -- SAMPLE QUERIES
