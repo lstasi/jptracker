@@ -229,7 +229,7 @@ Watches (user watchlist)
 
 ## Scalability Considerations
 
-- **Database**: SQLite for development, migration path to NoSQL for production
+- **Database**: PostgreSQL with standard scaling patterns (read replicas, partitioning - see [DATABASE_DESIGN.md](DATABASE_DESIGN.md))
 - **Caching**: Implement Redis for frequently accessed data
 - **Async Processing**: Use task queues (Celery) for scraping jobs
 - **API**: Design for horizontal scaling
@@ -295,7 +295,7 @@ Internet
             │
             └─→ Python Backend
                     │
-                    ├─→ Database (SQLite/NoSQL)
+                    ├─→ Database (PostgreSQL)
                     ├─→ Cache (Redis)
                     └─→ Task Queue (Celery Workers)
 ```

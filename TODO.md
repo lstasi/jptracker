@@ -84,7 +84,7 @@
 - [ ] Set up monitoring and logging
 
 ## Future Enhancements
-- [ ] Migrate to NoSQL database
+- [ ] Optimize PostgreSQL performance (partitioning, read replicas)
 - [ ] Implement advanced analytics
 - [ ] Add mobile app support
 - [ ] Implement machine learning for price prediction
