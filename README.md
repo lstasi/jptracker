@@ -1,28 +1,56 @@
 # jptracker
-Auction Tracker
+
+Auction Tracker - A web-based application for tracking auction items, monitoring prices, and managing bids.
 
 ## Overview
-JPTracker is an auction tracking system designed to monitor and manage unique auction offers and their associated bids.
+
+jptracker is an auction tracking system designed to help users monitor auction items, compare prices against real market values, track bids, and receive alerts for expiring auctions.
+
+## Features (Planned)
+
+- **Web Scraping**: Automated scraping of auction listings with rate limiting to avoid bans
+- **Product Storage**: Persistent storage of product information and auction data
+- **Price Comparison**: Compare auction prices/bids against real market prices
+- **Bid Tracking**: Monitor user bids across multiple auctions
+- **Expiration Alerts**: Receive notifications for expiring auctions
+
+## Technology Stack
+
+### Backend
+- **Language**: Python
+- **Database**: PostgreSQL (relational database - see [Database Design](docs/DATABASE_DESIGN.md) for rationale)
+- **API**: RESTful API backend
+
+### Frontend
+- **Framework**: Vanilla JavaScript
+- **Architecture**: Single Page Application (SPA)
+- **Communication**: API-based frontend-backend communication
+
+## Project Status
+
+🚧 **Planning Phase** - No code implementation yet
+
+This project is currently in the planning and design phase. See the `docs/` folder for architectural proposals and the `TODO.md` file for planned tasks.
 
 ## Documentation
-- [Architecture Overview](docs/ARCHITECTURE.md) - System design and rationale
-- [Database Design](docs/DATABASE_DESIGN.md) - Why relational DB and design decisions
-- [Database Schema](schema/schema.sql) - SQL schema with tables, indexes, and examples
+
+### Planning & Proposals
+- [Architecture Proposal](docs/architecture.md) - System architecture and component design
+- [Project Proposal](docs/proposal.md) - Full project proposal and requirements
+- [TODO](TODO.md) - Task list and project roadmap
+- [CHANGELOG](CHANGELOG.md) - Project change history
+
+### Database Design (Completed)
+- [Database Design Rationale](docs/DATABASE_DESIGN.md) - Why relational DB for unique offers
+- [Database Architecture](docs/ARCHITECTURE.md) - Schema design patterns and decisions
+- [Database Schema](schema/schema.sql) - PostgreSQL schema with triggers and indexes
 - [Migration Guide](docs/MIGRATION_GUIDE.md) - Setup instructions and sample data
-- [FAQ](docs/FAQ.md) - Common questions about the database design
+- [Database FAQ](docs/FAQ.md) - Common questions about the database design
 
-## Key Features
-- Track unique auction offers with complete product information
-- Manage bidding with ACID guarantees
-- Flexible tagging system for discovering similar items
-- Historical bid tracking and analytics
-- Support for proxy/auto-bidding
+## Getting Started
 
-## Database Design
-This project uses a relational database (PostgreSQL) despite each auction offer being unique. See [Database Design](docs/DATABASE_DESIGN.md) for detailed rationale.
+Coming soon - the project is currently in the planning phase.
 
-Key design principles:
-- **Offers are independent entities** - Each offer is self-contained with no forced normalization
-- **Flexible relationships via tags** - Discover similar items without rigid categorization  
-- **Data integrity** - ACID transactions for bidding operations
-- **Query flexibility** - SQL enables complex filtering and analytics
+## License
+
+TBD
