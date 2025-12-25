@@ -173,12 +173,34 @@ WHERE o.status = 'active' AND o.end_time > CURRENT_TIMESTAMP;
 -- Offer summary with tag list
 CREATE VIEW offers_with_tags AS
 SELECT 
-    o.*,
-    ARRAY_AGG(t.name) as tags
+    o.id,
+    o.title,
+    o.description,
+    o.condition,
+    o.starting_price,
+    o.current_price,
+    o.buy_now_price,
+    o.reserve_price,
+    o.start_time,
+    o.end_time,
+    o.status,
+    o.seller_id,
+    o.seller_name,
+    o.image_urls,
+    o.location,
+    o.shipping_cost,
+    o.view_count,
+    o.bid_count,
+    o.created_at,
+    o.updated_at,
+    ARRAY_AGG(t.name) FILTER (WHERE t.name IS NOT NULL) as tags
 FROM offers o
 LEFT JOIN offer_tags ot ON o.id = ot.offer_id
 LEFT JOIN tags t ON ot.tag_id = t.id
-GROUP BY o.id;
+GROUP BY o.id, o.title, o.description, o.condition, o.starting_price, o.current_price,
+         o.buy_now_price, o.reserve_price, o.start_time, o.end_time, o.status,
+         o.seller_id, o.seller_name, o.image_urls, o.location, o.shipping_cost,
+         o.view_count, o.bid_count, o.created_at, o.updated_at;
 
 -- ============================================================================
 -- FUNCTIONS
