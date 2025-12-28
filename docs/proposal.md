@@ -73,9 +73,15 @@ jptracker provides a unified platform that:
 - Support efficient queries
 
 **Technical Approach**:
+<<<<<<< HEAD
 - SQLite (development) → PostgreSQL (production) - see [architecture.md](architecture.md)
 - Structured schema with proper indexing and triggers
 - Supports unique offers with flexible tagging
+=======
+- SQLite database for initial implementation
+- Structured schema with proper indexing
+- Future migration path to NoSQL
+>>>>>>> main
 
 ### 3. Price Comparison
 **Description**: Compare auction prices against real market values
@@ -127,7 +133,11 @@ jptracker provides a unified platform that:
 ### Backend
 - **Language**: Python 3.8+
 - **Framework**: Flask or FastAPI
+<<<<<<< HEAD
 - **Database**: SQLite (development) → PostgreSQL (production)
+=======
+- **Database**: SQLite (development), NoSQL future
+>>>>>>> main
 - **ORM**: SQLAlchemy
 - **Scraping**: BeautifulSoup4, Requests, Selenium (if needed)
 - **Task Queue**: Celery (for background jobs)
@@ -155,10 +165,15 @@ jptracker provides a unified platform that:
 - [ ] Initial design mockups
 
 ### Phase 2: Backend Foundation (Week 3-4)
+<<<<<<< HEAD
 - [x] Database schema design (SQLite/PostgreSQL compatible)
 - [x] Database schema implementation with triggers and indexes
 - [x] Database design documentation and migration path
 - [ ] Database implementation (SQLite for development)
+=======
+- [ ] Database schema design
+- [ ] Database implementation (SQLite)
+>>>>>>> main
 - [ ] Basic API structure
 - [ ] Authentication system
 - [ ] API endpoint scaffolding
@@ -204,7 +219,11 @@ jptracker provides a unified platform that:
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
 | Getting banned from scraping | High | Medium | Implement proper rate limiting, respect robots.txt |
+<<<<<<< HEAD
 | Database choice validation | Medium | Low | SQLite for development, PostgreSQL for production (completed) |
+=======
+| Database scalability issues | Medium | Low | Plan migration to NoSQL early |
+>>>>>>> main
 | Unreliable external price APIs | Medium | Medium | Use multiple data sources, implement fallbacks |
 | Frontend performance issues | Low | Low | Optimize JavaScript, implement lazy loading |
 
@@ -308,8 +327,12 @@ jptracker provides a unified platform that:
 - Support for international auction sites
 
 ### Technical Improvements
+<<<<<<< HEAD
 - Migration from SQLite to PostgreSQL for production
 - PostgreSQL optimization and tuning
+=======
+- Migration to NoSQL database
+>>>>>>> main
 - Microservices architecture
 - GraphQL API
 - Real-time updates with WebSockets
@@ -325,6 +348,7 @@ The modular architecture and phased approach allow for incremental development a
 
 1. ✅ Complete project planning documentation
 2. ✅ Set up repository structure
+<<<<<<< HEAD
 3. ✅ Design database schema (SQLite/PostgreSQL compatible)
 4. ✅ Document database design, rationale, and migration path
 5. 🔄 Create development environment (Python/SQLite)
@@ -336,3 +360,14 @@ The modular architecture and phased approach allow for incremental development a
 **Document Version**: 1.1  
 **Last Updated**: 2025-12-25  
 **Status**: Planning Phase - Database Design Complete
+=======
+3. 🔄 Create development environment
+4. 🔄 Design database schema
+5. 🔄 Begin backend development
+
+---
+
+**Document Version**: 1.0  
+**Last Updated**: 2025-12-19  
+**Status**: Planning Phase
+>>>>>>> main

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Architecture proposal document
 - Project proposal document
 - Planning phase documentation
+<<<<<<< HEAD
 - **Database design and schema (SQLite/PostgreSQL compatible)**
 - **Comprehensive database documentation**
   - Database design rationale document
@@ -36,6 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Rationale: Unique offers don't preclude structured relationships; ACID transactions critical for bidding
   - See [architecture.md](docs/architecture.md) for full explanation and migration path
 - **Architecture documents**: Merged database-specific and system architecture into single unified document
+=======
+
+### Changed
+- N/A
+>>>>>>> main
 
 ### Deprecated
 - N/A

@@ -11,22 +11,33 @@
 - [ ] Set up .gitignore file
 
 ## Backend Development
+<<<<<<< HEAD
 - [x] Design database schema
 - [x] Document database design rationale
 - [x] Create SQLite/PostgreSQL-compatible schema with triggers and indexes
 - [ ] Set up Python virtual environment
 - [ ] Set up SQLite database (development)
 - [ ] Create database models (SQLAlchemy)
+=======
+- [ ] Design database schema
+- [ ] Set up SQLite database
+- [ ] Create database models
+>>>>>>> main
 - [ ] Implement ORM/database layer
 - [ ] Build RESTful API structure
 - [ ] Implement authentication system
 - [ ] Create API endpoints for:
+<<<<<<< HEAD
   - [ ] Product management (offers)
+=======
+  - [ ] Product management
+>>>>>>> main
   - [ ] Auction tracking
   - [ ] Bid management
   - [ ] User management
   - [ ] Alert management
 
+<<<<<<< HEAD
 ## Production Migration
 - [ ] Set up PostgreSQL staging environment
 - [ ] Test schema with PostgreSQL
@@ -34,6 +45,8 @@
 - [ ] Load testing with PostgreSQL
 - [ ] Write data migration scripts
 - [ ] Migrate to PostgreSQL for production
+=======
+>>>>>>> main
 ## Web Scraping Module
 - [ ] Research target auction sites
 - [ ] Implement rate limiting mechanism
@@ -91,7 +104,11 @@
 - [ ] Set up monitoring and logging
 
 ## Future Enhancements
+<<<<<<< HEAD
 - [ ] Optimize PostgreSQL performance (partitioning, read replicas)
+=======
+- [ ] Migrate to NoSQL database
+>>>>>>> main
 - [ ] Implement advanced analytics
 - [ ] Add mobile app support
 - [ ] Implement machine learning for price prediction

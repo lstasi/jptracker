@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Architecture - jptracker
 
 ## System Overview
@@ -27,6 +28,15 @@ Using a relational database ensures:
 - Audit trail preservation
 
 ## System Architecture Layers
+=======
+# Architecture Proposal - jptracker
+
+## System Overview
+
+jptracker is an auction tracking application designed with a clear separation between frontend and backend components, following a modern web application architecture pattern.
+
+## Architecture Diagram
+>>>>>>> main
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -73,14 +83,23 @@ Using a relational database ensures:
 ┌─────────────────────────────────────────────────────────────┐
 │                       Storage Layer                          │
 │  ┌───────────────────────────────────────────────────────┐  │
+<<<<<<< HEAD
 │  │  SQLite (Development) → PostgreSQL (Production)        │  │
 │  │  Schema with triggers, indexes, and views              │  │
 │  │  See: DATABASE_DESIGN.md for details                   │  │
+=======
+│  │              SQLite Database                           │  │
+│  │  (Future: NoSQL migration planned)                     │  │
+>>>>>>> main
 │  └───────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
+<<<<<<< HEAD
 ## Component Details
+=======
+## Components
+>>>>>>> main
 
 ### 1. Frontend (Client Layer)
 
@@ -161,6 +180,7 @@ Using a relational database ensures:
 
 ### 5. Storage Layer
 
+<<<<<<< HEAD
 **Database Evolution Path**: SQLite → PostgreSQL
 
 #### Phase 1: Development & Initial Releases (SQLite)
@@ -355,6 +375,67 @@ Watches (user watchlist)
    - Efficient joins for finding similar items via tags
    - Aggregate queries for analytics
 
+=======
+**Current**: SQLite
+**Future**: NoSQL (MongoDB, DynamoDB, or similar)
+
+**Database Schema** (Proposed):
+
+```
+Users
+- id (PK)
+- username
+- email
+- password_hash
+- created_at
+- updated_at
+
+Products
+- id (PK)
+- title
+- description
+- category
+- source_url
+- image_url
+- created_at
+- updated_at
+
+Auctions
+- id (PK)
+- product_id (FK)
+- current_price
+- starting_price
+- end_time
+- status
+- created_at
+- updated_at
+
+Bids
+- id (PK)
+- auction_id (FK)
+- user_id (FK)
+- amount
+- bid_time
+- status
+
+Prices
+- id (PK)
+- product_id (FK)
+- price
+- source
+- timestamp
+
+Alerts
+- id (PK)
+- user_id (FK)
+- auction_id (FK)
+- alert_type
+- trigger_condition
+- is_active
+- created_at
+```
+
+>>>>>>> main
 ## Data Flow
 
 ### Product Scraping Flow
@@ -390,6 +471,7 @@ Watches (user watchlist)
 
 ## Scalability Considerations
 
+<<<<<<< HEAD
 ### Development Phase (SQLite)
 - Single file database
 - No server management
@@ -461,6 +543,45 @@ Watches (user watchlist)
 - [ ] Deployment automation
 - [ ] Monitoring setup
 - [ ] Launch
+=======
+- **Database**: SQLite for development, migration path to NoSQL for production
+- **Caching**: Implement Redis for frequently accessed data
+- **Async Processing**: Use task queues (Celery) for scraping jobs
+- **API**: Design for horizontal scaling
+- **Rate Limiting**: Protect API endpoints
+
+## Development Phases
+
+### Phase 1: Foundation (Current)
+- Project setup and planning
+- Architecture design
+- Technology selection
+
+### Phase 2: Core Backend
+- Database setup
+- Basic API implementation
+- Authentication system
+
+### Phase 3: Scraping Module
+- Scraper implementation
+- Rate limiting
+- Data extraction
+
+### Phase 4: Frontend
+- UI implementation
+- API integration
+- User workflows
+
+### Phase 5: Advanced Features
+- Price comparison
+- Alert system
+- Notifications
+
+### Phase 6: Production
+- Testing
+- Deployment
+- Monitoring
+>>>>>>> main
 
 ## Technology Stack Summary
 
@@ -468,8 +589,12 @@ Watches (user watchlist)
 |-----------|-----------|
 | Frontend | Vanilla JavaScript, HTML5, CSS3 |
 | Backend | Python (Flask/FastAPI) |
+<<<<<<< HEAD
 | Database (Dev) | **SQLite** |
 | Database (Prod) | **PostgreSQL** |
+=======
+| Database | SQLite → NoSQL (future) |
+>>>>>>> main
 | ORM | SQLAlchemy |
 | Scraping | BeautifulSoup4, Scrapy, or Selenium |
 | API | RESTful |
@@ -477,6 +602,7 @@ Watches (user watchlist)
 | Task Queue | Celery (future) |
 | Cache | Redis (future) |
 
+<<<<<<< HEAD
 ## Deployment Architecture
 
 ### Development
@@ -491,6 +617,10 @@ Developer Machine
 ```
 
 ### Production (Future)
+=======
+## Deployment Architecture (Future)
+
+>>>>>>> main
 ```
 Internet
     │
@@ -503,11 +633,16 @@ Internet
             │
             └─→ Python Backend
                     │
+<<<<<<< HEAD
                     ├─→ Database (PostgreSQL)
+=======
+                    ├─→ Database (SQLite/NoSQL)
+>>>>>>> main
                     ├─→ Cache (Redis)
                     └─→ Task Queue (Celery Workers)
 ```
 
+<<<<<<< HEAD
 ## Implementation Recommendations
 
 ### Phase 1: Core Functionality (SQLite)
@@ -578,3 +713,8 @@ The key insight: **uniqueness of offers doesn't preclude relational storage**. T
 For detailed database design rationale, see [DATABASE_DESIGN.md](DATABASE_DESIGN.md).  
 For implementation details, see [schema/schema.sql](../schema/schema.sql).  
 For setup instructions, see [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md).
+=======
+## Conclusion
+
+This architecture provides a solid foundation for the jptracker application with clear separation of concerns, scalability, and maintainability. The modular design allows for incremental development and future enhancements.
+>>>>>>> main
