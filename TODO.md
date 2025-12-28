@@ -34,7 +34,6 @@
 - [ ] Load testing with PostgreSQL
 - [ ] Write data migration scripts
 - [ ] Migrate to PostgreSQL for production
-
 ## Web Scraping Module
 - [ ] Research target auction sites
 - [ ] Implement rate limiting mechanism
